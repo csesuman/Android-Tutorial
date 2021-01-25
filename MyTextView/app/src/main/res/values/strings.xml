@@ -8,4 +8,6 @@ A second common modern English style is to use no indenting, but add vertical wh
 A second common modern English style is to use no indenting, but add vertical white space to create "block paragraphs." On a typewriter, a double carriage return produces a blank line for this purpose; professional typesetters (or word processing software) may put in an arbitrary vertical space by adjusting leading. This style is very common in electronic formats, such as on the World Wide Web and email. Wikipedia itself employs this format.
 
     </string>
+
+    <string name="button_name">Login</string>
 </resources>
