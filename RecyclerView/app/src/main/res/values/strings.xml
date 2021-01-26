@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">RecyclerView</string>
+
+    <string-array name="programming_languages">
+        <item>C++</item>
+        <item>Java</item>
+        <item>JavaScript</item>
+        <item>Python</item>
+        <item>Ruby</item>
+        <item>Swift</item>
+        <item>TypeScript</item>
+        <item>VisualStudio</item>
+    </string-array>
+
+    <string-array name="descriptions">
+        <item>I love C++</item>
+        <item>I Like Java Too.</item>
+        <item>It is not Java.</item>
+        <item>This is not snake.</item>
+        <item>Rubi is Valuable.</item>
+        <item>Comes after ObjectiveC.</item>
+        <item>Only Typescript is real.</item>
+        <item>This is an IDE.</item>
+    </string-array>
+
+</resources>
