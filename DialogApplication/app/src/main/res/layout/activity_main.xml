@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:gravity="center"
+    >
+
+    <Button
+        android:id="@+id/buttonSimple"
+        android:text="Simple Dialog"
+        android:textAllCaps="false"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop= "true"
+        android:layout_centerHorizontal="true"
+        />
+
+    <Button
+        android:id="@+id/twoButtonDialog"
+        android:text="Two Button Dialog"
+        android:textAllCaps="false"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"
+        />
+
+    <Button
+        android:id="@+id/buttonSendDataToActivity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:text="Send Data To Activity" />
+
+    <TextView
+        android:id="@+id/text_username"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:text="be our Username"
+        android:textSize="30sp"
+        android:layout_below="@+id/twoButtonDialog" />
+
+    <TextView
+        android:id="@+id/text_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:text=" our Password"
+        android:textSize="30sp"
+        android:layout_below="@+id/text_username" />
+
+    <Button
+        android:id="@+id/buttonAnimation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/twoButtonDialog"
+        android:layout_centerHorizontal="true"
+        android:text="Animation Dialog" />
+
+</RelativeLayout>
