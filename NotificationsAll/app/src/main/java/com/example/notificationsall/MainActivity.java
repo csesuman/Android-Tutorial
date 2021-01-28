@@ -1,5 +1,7 @@
 package com.example.notificationsall;
 
+//import androidx.appcompat.app.AppCompatActivity;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
@@ -12,6 +14,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v4.media.session.MediaSessionCompat;
 import android.view.View;
 import android.widget.EditText;
 
@@ -26,6 +29,8 @@ public class MainActivity extends AppCompatActivity {
     private EditText editTextTitle;
     private EditText editTextMessage;
 
+    private MediaSessionCompat mediaSessionCompat;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,6 +40,8 @@ public class MainActivity extends AppCompatActivity {
 
         editTextTitle = findViewById(R.id.edit_text_title);
         editTextMessage = findViewById(R.id.edit_text_messagee);
+
+        mediaSessionCompat = new MediaSessionCompat(this, "tag");
     }
 
     public void sendOnChannel1(View v) {
@@ -45,29 +52,32 @@ public class MainActivity extends AppCompatActivity {
         Intent activityIntent = new Intent(this, MainActivity.class);
         PendingIntent contentIntent = PendingIntent.getActivity(this, 0, activityIntent, 0 );
 
-        Intent broadCastIntent = new Intent(this, NotificationReceiver.class );
-        broadCastIntent.putExtra("toastMessage", messsage);
-        PendingIntent actionIntent = PendingIntent.getBroadcast(this, 0, broadCastIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+//        Intent broadCastIntent = new Intent(this, NotificationReceiver.class );
+//        broadCastIntent.putExtra("toastMessage", messsage);
+//        PendingIntent actionIntent = PendingIntent.getBroadcast(this, 0, broadCastIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
 
-        Bitmap largeIcon = BitmapFactory.decodeResource( getResources(), R.drawable.lotti );
+//        Bitmap largeIcon = BitmapFactory.decodeResource( getResources(), R.drawable.lotti );
+        Bitmap picture = BitmapFactory.decodeResource( getResources(), R.drawable.lotti2 );
+
 
         Notification notification = new NotificationCompat.Builder(this, CHANNEL_1_ID )
                 .setSmallIcon(R.drawable.ic_one)
                 .setContentTitle(title)
                 .setContentText(messsage)
-                .setLargeIcon(largeIcon)
-                .setStyle(new NotificationCompat.BigTextStyle()
-                        .bigText(getString( R.string.long_dummy_text ))
-                        .setBigContentTitle("Big Content title")
-                        .setSummaryText("Summary Text"))
+                .setLargeIcon(picture)
+
+                .setStyle(new NotificationCompat.BigPictureStyle()
+                        .bigPicture(picture)
+                        .bigLargeIcon(null))
+
+
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setCategory(NotificationCompat.CATEGORY_MESSAGE)
-                .setColor(Color.BLUE)
                 .setContentIntent(contentIntent)
                 .setAutoCancel(true)
                 .setOnlyAlertOnce(true)
-                .addAction(R.mipmap.ic_launcher, "Toast", actionIntent)
+//                .addAction(R.mipmap.ic_launcher, "Toast", actionIntent)
                 .build();
 
         notificationManager.notify(1, notification);
@@ -77,20 +87,25 @@ public class MainActivity extends AppCompatActivity {
         String title = editTextTitle.getText().toString();
         String messsage = editTextMessage.getText().toString();
 
+        Bitmap artwork  = BitmapFactory.decodeResource( getResources(), R.drawable.me_test  );
+
         Notification notification = new NotificationCompat.Builder(this, CHANNEL_2_ID )
                 .setSmallIcon(R.drawable.ic_two)
                 .setContentTitle(title)
                 .setContentText(messsage)
-                .setStyle(new NotificationCompat.InboxStyle()
-                        .addLine("This is Line 1")
-                        .addLine("This is Line 2")
-                        .addLine("This is Line 3")
-                        .addLine("This is Line 4")
-                        .addLine("This is Line 5")
-                        .addLine("This is Line 6")
-                        .addLine("This is Line 7")
-                        .addLine("This is Line 8")
-                )
+                .setLargeIcon(artwork)
+                .addAction(R.drawable.ic_dislike, "Dislike", null)
+                .addAction(R.drawable.ic_previous, "Previous", null)
+                .addAction(R.drawable.ic_pause, "Pause", null)
+                .addAction(R.drawable.ic_next, "Next", null)
+                .addAction(R.drawable.ic_like, "Like", null)
+
+                .setStyle( new androidx.media.app.NotificationCompat.MediaStyle()
+                        .setShowActionsInCompactView(1,2,3)
+                        .setMediaSession(mediaSessionCompat.getSessionToken())
+                        )
+
+                .setSubText("Sub Text")
                 .setPriority(NotificationCompat.PRIORITY_LOW)
 
                 .setCategory(NotificationCompat.CATEGORY_MESSAGE)
