@@ -3,13 +3,19 @@ package com.example.broadcastsender;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.BroadcastReceiver;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -27,31 +33,32 @@ public class MainActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent("com.broadcastreceiver.EXAMPLE_ACTION");
-                intent.putExtra("com.broadcastreceiver.EXTRA_TEXT", "Broadcast received");
-                sendBroadcast(intent);
+                sendBroadcast();
             }
         });
     }
 
-    private BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            String receviedText = intent.getStringExtra("com.broadcastreceiver.EXTRA_TEXT");
-            textView.setText(receviedText);
-        }
-    };
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        IntentFilter filter = new IntentFilter("com.broadcastreceiver.EXAMPLE_ACTION");
-        registerReceiver(broadcastReceiver, filter);
-    }
+    public void sendBroadcast() {
+        Intent intent = new Intent("com.example.EXAMPLE_ACTION");
+//        intent.setClass(this, ExampleBroadcastReceiver2.class);
+//        ComponentName cn = new ComponentName("com.example.broadcastreceiver", "com.example.broadcastreceiver.ExampleBroadcastReceiver" );
+////        ComponentName cn = new ComponentName(this, ExampleBroadcastReceiver2.class);
+//        intent.setComponent(cn);
 
-    @Override
-    protected void onStop() {
-        super.onStop();
-        unregisterReceiver(broadcastReceiver);
+//        intent.setClassName("com.example.broadcastreceiver", "com.example.broadcastreceiver.ExampleBroadcastReceiver");
+
+        intent.setPackage( "com.example.broadcastreceiver");
+//
+//        PackageManager packageManager = getPackageManager();
+//        List<ResolveInfo>  infos = packageManager.queryBroadcastReceivers(intent,0);
+//        Log.i("Suman", "Hello " + infos.size());
+////        sendBroadcast(intent);
+//        for(ResolveInfo info: infos)  {
+//            ComponentName cn = new ComponentName(info.activityInfo.packageName, info.activityInfo.name);
+//            Log.i("Suman", info.activityInfo.packageName + " + " + info.activityInfo.name);
+//            intent.setComponent(cn);
+            sendBroadcast(intent);
+//        }
     }
 }
