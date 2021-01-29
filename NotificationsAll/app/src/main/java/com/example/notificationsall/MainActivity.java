@@ -10,6 +10,8 @@ import androidx.core.app.Person;
 import androidx.core.app.RemoteInput;
 
 import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.app.PendingIntent;
 //import androidx.co .RemoteInput;
 import android.content.Context;
@@ -17,9 +19,11 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.SystemClock;
+import android.provider.Settings;
 import android.support.v4.media.session.MediaSessionCompat;
 import android.util.Log;
 import android.view.View;
@@ -56,10 +60,53 @@ public class MainActivity extends AppCompatActivity {
 
 //    @RequiresApi(api = Build.VERSION_CODES.KITKAT_WATCH)
     public void sendOnChannel1(View v) {
+
+        if(!notificationManager.areNotificationsEnabled()) {
+            openNotificationSettings();
+            return;
+        }
+
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O &&
+                isChannelBlocked(CHANNEL_1_ID)) {
+
+            openChannelSettings(CHANNEL_1_ID);
+        }
+
         sendOnChannel1Notification(this);
     }
 
-//    @RequiresApi(api = Build.VERSION_CODES.KITKAT_WATCH)
+    private void openNotificationSettings() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            Intent intent = new Intent(Settings.ACTION_APP_NOTIFICATION_BUBBLE_SETTINGS);
+            intent.putExtra(Settings.EXTRA_APP_PACKAGE, getPackageName());
+            startActivity(intent);
+        }
+        else {
+            Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+            intent.setData(Uri.parse("package:" + getPackageName()));
+            startActivity(intent);
+        }
+    }
+
+    @RequiresApi(26)
+    private boolean isChannelBlocked(String channelId) {
+        NotificationManager manager = getSystemService(NotificationManager.class);
+        NotificationChannel channel = manager.getNotificationChannel(channelId);
+
+        return channel != null &&
+
+                channel.getImportance() == NotificationManager.IMPORTANCE_NONE;
+    }
+
+    @RequiresApi(26)
+    private  void openChannelSettings(String channelId) {
+        Intent intent = new Intent(Settings.ACTION_CHANNEL_NOTIFICATION_SETTINGS);
+        intent.putExtra(Settings.EXTRA_APP_PACKAGE, getPackageName());
+        intent.putExtra(Settings.EXTRA_CHANNEL_ID, channelId);
+        startActivity(intent);
+    }
+
+    //    @RequiresApi(api = Build.VERSION_CODES.KITKAT_WATCH)
     public static void sendOnChannel1Notification(Context context) {
 
         Intent activityIntent = new Intent(context, MainActivity.class);
