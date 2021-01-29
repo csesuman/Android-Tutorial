@@ -29,11 +29,14 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
+import java.nio.channels.Channel;
 import java.util.ArrayList;
 import java.util.List;
 
 import static com.example.notificationsall.App.CHANNEL_1_ID;
 import static com.example.notificationsall.App.CHANNEL_2_ID;
+import static com.example.notificationsall.App.CHANNEL_3_ID;
+import static com.example.notificationsall.App.GROUP_1_ID;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -220,5 +223,13 @@ public class MainActivity extends AppCompatActivity {
         notificationManager.notify(3, notification2);
         SystemClock.sleep(2000);
         notificationManager.notify(4, notification3);
+    }
+
+    public void deleteNotificationChannels(View v) {
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationManager manager = getSystemService(NotificationManager.class);
+//            manager.deleteNotificationChannel(CHANNEL_3_ID);
+            manager.deleteNotificationChannelGroup(GROUP_1_ID);
+        }
     }
 }
