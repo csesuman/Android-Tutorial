@@ -19,6 +19,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.v4.media.session.MediaSessionCompat;
 import android.util.Log;
 import android.view.View;
@@ -36,8 +37,6 @@ public class MainActivity extends AppCompatActivity {
     private EditText editTextTitle;
     private EditText editTextMessage;
 
-    private MediaSessionCompat mediaSessionCompat;
-
     static List<Message>  MESSAGES = new ArrayList<>();
 
     @Override
@@ -49,8 +48,6 @@ public class MainActivity extends AppCompatActivity {
 
         editTextTitle = findViewById(R.id.edit_text_title);
         editTextMessage = findViewById(R.id.edit_text_messagee);
-
-        mediaSessionCompat = new MediaSessionCompat(this, "tag");
 
         MESSAGES.add(new Message("Good Morning", "jim")) ;
         MESSAGES.add(new Message("Hello", null)) ;
@@ -136,33 +133,38 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void sendOnChannel2(View v) {
-        String title = editTextTitle.getText().toString();
-        String messsage = editTextMessage.getText().toString();
 
-        Bitmap artwork  = BitmapFactory.decodeResource( getResources(), R.drawable.me_test  );
+        final int progressMax = 100;
 
-        Notification notification = new NotificationCompat.Builder(this, CHANNEL_2_ID )
+        NotificationCompat.Builder notification = new NotificationCompat.Builder(this, CHANNEL_2_ID )
                 .setSmallIcon(R.drawable.ic_two)
-                .setContentTitle(title)
-                .setContentText(messsage)
-                .setLargeIcon(artwork)
-                .addAction(R.drawable.ic_dislike, "Dislike", null)
-                .addAction(R.drawable.ic_previous, "Previous", null)
-                .addAction(R.drawable.ic_pause, "Pause", null)
-                .addAction(R.drawable.ic_next, "Next", null)
-                .addAction(R.drawable.ic_like, "Like", null)
-
-                .setStyle( new androidx.media.app.NotificationCompat.MediaStyle()
-                        .setShowActionsInCompactView(1,2,3)
-                        .setMediaSession(mediaSessionCompat.getSessionToken())
-                        )
-
-                .setSubText("Sub Text")
+                .setContentTitle("Download")
+                .setContentText("Download in progress")
                 .setPriority(NotificationCompat.PRIORITY_LOW)
+                .setOngoing(true)
+                .setOnlyAlertOnce(true )
+                .setProgress(progressMax, 0, false)
 
-                .setCategory(NotificationCompat.CATEGORY_MESSAGE)
-                .build();
+                .setCategory(NotificationCompat.CATEGORY_MESSAGE);
 
-        notificationManager.notify(2, notification);
+        notificationManager.notify(2, notification.build());
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                SystemClock.sleep(2000);
+                for(int progress =  0; progress <= progressMax; progress += 20) {
+//                    notification.setProgress(progressMax, progress, false);
+//                    notificationManager.notify(2, notification.build());
+                    SystemClock.sleep(1000);
+                }
+
+                notification.setContentText("Download finished")
+                        .setProgress(0,0,false)
+                        .setOngoing(false);
+
+                notificationManager.notify(2, notification.build());
+            }
+        }).start();
     }
 }
