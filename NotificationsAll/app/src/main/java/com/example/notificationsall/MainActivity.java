@@ -65,10 +65,6 @@ public class MainActivity extends AppCompatActivity {
         Intent activityIntent = new Intent(context, MainActivity.class);
         PendingIntent contentIntent = PendingIntent.getActivity(context, 0, activityIntent, 0 );
 
-//        Intent broadCastIntent = new Intent(this, NotificationReceiver.class );
-//        broadCastIntent.putExtra("toastMessage", messsage);
-//        PendingIntent actionIntent = PendingIntent.getBroadcast(this, 0, broadCastIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-
         RemoteInput remoteInput = new RemoteInput.Builder("key_text_reply")
                 .setLabel("Your answer...")
                 .build();
@@ -148,7 +144,7 @@ public class MainActivity extends AppCompatActivity {
                 .setGroup("Example Group")
                 .build();
 
-        Notification notification2 = new NotificationCompat.Builder(this, CHANNEL_2_ID ) 
+        Notification notification2 = new NotificationCompat.Builder(this, CHANNEL_2_ID )
                 .setSmallIcon(R.drawable.ic_two)
                 .setContentTitle(title2)
                 .setContentText(message2)
