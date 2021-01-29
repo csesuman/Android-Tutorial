@@ -134,37 +134,48 @@ public class MainActivity extends AppCompatActivity {
 
     public void sendOnChannel2(View v) {
 
-        final int progressMax = 100;
+        String title1 = "Title 1";
+        String message1 = "Message 1";
 
-        NotificationCompat.Builder notification = new NotificationCompat.Builder(this, CHANNEL_2_ID )
+        String title2 = "Title 2";
+        String message2 = "Message 2";
+
+        Notification notification1 = new NotificationCompat.Builder(this, CHANNEL_2_ID )
                 .setSmallIcon(R.drawable.ic_two)
-                .setContentTitle("Download")
-                .setContentText("Download in progress")
+                .setContentTitle(title1)
+                .setContentText(message1)
                 .setPriority(NotificationCompat.PRIORITY_LOW)
-                .setOngoing(true)
-                .setOnlyAlertOnce(true )
-                .setProgress(progressMax, 0, false)
+                .setGroup("Example Group")
+                .build();
 
-                .setCategory(NotificationCompat.CATEGORY_MESSAGE);
+        Notification notification2 = new NotificationCompat.Builder(this, CHANNEL_2_ID ) 
+                .setSmallIcon(R.drawable.ic_two)
+                .setContentTitle(title2)
+                .setContentText(message2)
+                .setPriority(NotificationCompat.PRIORITY_LOW)
+                .setGroup("Example Group")
+                .build();
 
-        notificationManager.notify(2, notification.build());
+        Notification notification3 = new NotificationCompat.Builder(this, CHANNEL_2_ID )
+                .setSmallIcon(R.drawable.ic_reply)
+                .setStyle(new NotificationCompat.InboxStyle()
+                        .addLine(title2 + " " + message2)
+                        .addLine(title1 + " " + message2)
+                        .setBigContentTitle("2 new messages")
+                        .setSummaryText("user@example.com")
+                )
+                .setPriority(NotificationCompat.PRIORITY_LOW)
+                .setGroup("Example Group")
+                .setGroupAlertBehavior(NotificationCompat.GROUP_ALERT_CHILDREN)
+                .setGroupSummary(true)
+                .build();
 
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                SystemClock.sleep(2000);
-                for(int progress =  0; progress <= progressMax; progress += 20) {
-//                    notification.setProgress(progressMax, progress, false);
-//                    notificationManager.notify(2, notification.build());
-                    SystemClock.sleep(1000);
-                }
+        SystemClock.sleep(2000);
 
-                notification.setContentText("Download finished")
-                        .setProgress(0,0,false)
-                        .setOngoing(false);
-
-                notificationManager.notify(2, notification.build());
-            }
-        }).start();
+        notificationManager.notify(2, notification1);
+        SystemClock.sleep(2000);
+        notificationManager.notify(3, notification2);
+        SystemClock.sleep(2000);
+        notificationManager.notify(4, notification3);
     }
 }
