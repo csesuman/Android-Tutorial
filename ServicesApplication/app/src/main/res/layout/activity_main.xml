@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#352308"
+    android:padding="30dp"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/textViewThreadCount"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:gravity="center"
+        android:text="Hello World!"
+        android:textColor="#D006F3"
+        android:textSize="40sp"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/buttonStartThread"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textViewThreadCount"
+        android:text="@string/startService" />
+
+    <Button
+        android:id="@+id/buttonStopThread"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/buttonStartThread"
+        android:text="@string/stopService"
+        app:backgroundTint="#CF190C" />
+
+    <Button
+        android:id="@+id/buttonBindService"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/buttonStopThread"
+        android:text="@string/bindService"
+        app:backgroundTint="#317C21" />
+
+    <Button
+        android:id="@+id/buttonUnbindService"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/buttonBindService"
+        android:text="@string/unbindService"
+        app:backgroundTint="#AC2E2E" />
+
+    <Button
+        android:id="@+id/buttonGetRandomNumber"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/buttonUnbindService"
+        android:text="@string/getRandomNumber"
+        app:backgroundTint="#A17636" />
+
+</RelativeLayout>
