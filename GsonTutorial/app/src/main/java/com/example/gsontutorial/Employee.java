@@ -1,5 +1,7 @@
 package com.example.gsontutorial;
 
+import android.widget.Adapter;
+
 import com.google.gson.annotations.SerializedName;
 
 public class Employee {
@@ -13,9 +15,13 @@ public class Employee {
     @SerializedName("mail")
     private String mMail;
 
-    public Employee(String firstName, int age, String mail) {
-        mFirstName = firstName;
-        mAge = age;
-        mMail = mail;
+    @SerializedName("address")
+    private Address address;
+
+    public Employee(String mFirstName, int mAge, String mMail, Address address) {
+        this.mFirstName = mFirstName;
+        this.mAge = mAge;
+        this.mMail = mMail;
+        this.address = address;
     }
 }
