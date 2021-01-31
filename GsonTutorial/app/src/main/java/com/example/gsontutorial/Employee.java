@@ -4,6 +4,8 @@ import android.widget.Adapter;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 public class Employee {
 
     @SerializedName("first_name")
@@ -18,10 +20,15 @@ public class Employee {
     @SerializedName("address")
     private Address address;
 
-    public Employee(String mFirstName, int mAge, String mMail, Address address) {
+    @SerializedName("family")
+    private List<FamilyMember> mFamily;
+
+
+    public Employee(String mFirstName, int mAge, String mMail, Address address, List<FamilyMember> mFamily) {
         this.mFirstName = mFirstName;
         this.mAge = mAge;
         this.mMail = mMail;
         this.address = address;
+        this.mFamily = mFamily;
     }
 }
