@@ -9,6 +9,9 @@ import android.widget.Toast;
 
 import com.example.databindingjava.databinding.ActivityMainBinding;
 
+
+// https://www.youtube.com/watch?v=tDYZBSSgp1c&t=649s
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -21,11 +24,13 @@ public class MainActivity extends AppCompatActivity {
 //        setContentView(activityMainBinding.getRoot());
         activityMainBinding.setMyVariable("Hello DataBinding......");
 
-        User user = new User("Youts Truly", 26, true, "https:vull");
+        String url = "https://scontent.fcla1-1.fna.fbcdn.net/v/t1.0-1/p480x480/74224154_2698649110199368_7930597270284664832_o.jpg?_nc_cat=107&ccb=3&_nc_sid=dbb9e7&_nc_ohc=k6hjX9NCrcQAX8Dwc5-&_nc_ht=scontent.fcla1-1.fna&tp=6&oh=0bc844d953f0cac0490ecfcaec4d4467&oe=60657E3F";
+
+        User user = new User("Youts Truly", 26, true, url);
 
 
         activityMainBinding.setUser(user);
-
+//
 //        activityMainBinding.button.setOnClickListener(new View.OnClickListener() {
 //
 //            @Override

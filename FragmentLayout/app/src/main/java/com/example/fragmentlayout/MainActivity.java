@@ -14,7 +14,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        runFragTxn(R.id.frameContainer, ImageFragment.getInstance(R.drawable.swift));
+        runFragTxn(R.id.frameContainer, ImageFragment.getInstance(R.drawable.swift)) ;
         runFragTxn(R.id.frameBottom, BottomFragment.getInstance());
     }
 

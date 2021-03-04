@@ -1,6 +1,12 @@
 package com.example.databindingjava;
 
+import android.text.Layout;
 import android.util.Log;
+import android.widget.ImageView;
+
+import androidx.databinding.BindingAdapter;
+
+import com.bumptech.glide.Glide;
 
 import static android.content.ContentValues.TAG;
 
@@ -10,11 +16,15 @@ public class User {
         private boolean active;
         private String imageUrl;
 
+    private Layout layout;
+
     public User(String name, int age, boolean active, String imageUrl) {
         this.name = name;
         this.age = age;
         this.active = active;
         this.imageUrl = imageUrl;
+
+
     }
 
     public String getName() {
@@ -61,5 +71,12 @@ public class User {
 
     public void handleClicked() {
         Log.d(TAG, "handleClick: " + this.getName());
+    }
+
+    @BindingAdapter("android:whatever")
+    public static  void loadImage(ImageView imageView, String imageUrl) {
+        Glide.with(imageView)
+            .load(imageUrl)
+            .into(imageView);
     }
 }
